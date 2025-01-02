@@ -21,7 +21,7 @@ public class StudentScoreService {
     private final StudentPassRepository studentPassRepository;
     private final StudentFailRepository studentFailRepository;
 
-    public void saveScore(String studentName, String exam, Integer korScore, Integer mathScore, Integer englishScore) {
+    public void saveScore(String studentName, String exam, Integer korScore, Integer englishScore, Integer mathScore) {
         StudentScore studentScore = StudentScore.builder()
                 .exam(exam)
                 .studentName(studentName)
