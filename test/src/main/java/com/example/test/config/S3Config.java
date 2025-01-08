@@ -1,4 +1,4 @@
-package com.example.test.service;
+package com.example.test.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
