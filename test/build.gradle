@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'jacoco'
 }
 
 group = 'com.example'
@@ -53,6 +54,53 @@ dependencies {
 	testImplementation 'com.tngtech.archunit:archunit:1.1.0'
 }
 
+jacoco {
+	toolVersion = "0.8.8"
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
+
+	jacoco {}
+	finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+	reports {
+		xml.required = true
+		html.required = true
+		csv.required = true
+
+		xml.destination(file("build/jacoco/jacoco.xml"))
+		html.destination(file("build/jacoco/jacoco.html"))
+	}
+
+	finalizedBy(tasks.jacocoTestCoverageVerification)
+}
+
+tasks.jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			enabled = true
+			element = "CLASS"
+
+			limit {
+				counter = "LINE"
+				value = "COVEREDRATIO"
+				minimum = BigDecimal.valueOf(0.5)
+			}
+
+			limit {
+				counter = "LINE"
+				value = "TOTALCOUNT"
+				maximum = BigDecimal.valueOf(100)
+			}
+
+			excludes = List.of(
+					"*.controller.*",
+					"com.example.test.TestApplication",
+					"com.example.test.MyCalculatorApplication"
+			)
+		}
+	}
 }
