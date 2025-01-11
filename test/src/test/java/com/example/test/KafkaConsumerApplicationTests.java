@@ -3,12 +3,14 @@ package com.example.test;
 import com.example.test.service.KafkaConsumerService;
 import com.example.test.service.KafkaProducerService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+@Order(0)
 public class KafkaConsumerApplicationTests extends IntegrationTest {
     @Autowired
     private KafkaProducerService kafkaProducerService;
